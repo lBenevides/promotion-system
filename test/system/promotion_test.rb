@@ -130,13 +130,38 @@ class PromotionsTest < ApplicationSystemTestCase
     click_on 'Gerar cupons'
 
     
-      assert_text 'Cupons gerados com sucesso'
+    assert_text 'Cupons gerados com sucesso'
     assert_no_link 'Gerar cupons'
     assert_no_text 'NATAL10-0000'
     assert_text 'NATAL10-0001'
     assert_text 'NATAL10-0002'
     assert_text 'NATAL10-0003'
     assert_no_text 'NATAL10-0101'
+  end
+
+  test 'update promotion' do
+    promotion = Promotion.create!(name: 'Ciber', description: 'Promoção de Ciber Monday',
+                                  code: 'Ciber10', discount_rate: 10, coupon_quantity: 90 ,
+                                  expiration_date: '22/02/2033')
+    
+    visit promotion_path(promotion)
+    click_on 'Editar promoção'
+    fill_in 'Nome', with: 'Cyber Monday'
+    fill_in 'Descrição', with: 'Promoção de Cyber Monday'
+    fill_in 'Código', with: 'CYBER15'
+    fill_in 'Desconto', with: '15'
+    fill_in 'Quantidade de cupons', with: '30'
+    fill_in 'Data de término', with: '22/12/2033'
+    click_on 'Editar'
+
+    assert_text 'Cyber Monday'
+    assert_text 'Promoção de Cyber Monday'
+    assert_text '15,00%'
+    assert_text 'CYBER15'
+    assert_text '22/12/2033'
+    assert_text '30'
+    assert_link 'Voltar'
+    
   end
 
 end
