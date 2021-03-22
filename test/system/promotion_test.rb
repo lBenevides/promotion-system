@@ -175,4 +175,19 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_no_text '10,00%'
   end
 
+  test 'delete promotion with generated coupons' do
+    promotion = Promotion.create!(name: 'Cyber', description: 'Promoção de Cyber Monday',
+                                  code: 'Cyber10', discount_rate: 10, coupon_quantity: 90 ,
+                                  expiration_date: '22/02/2033')
+                                  
+    visit promotion_path(promotion)
+    click_on 'Gerar cupons'
+    click_on 'Deletar promoção'
+    
+    assert promotion.coupons.empty?
+    assert_no_text 'Cyber'
+    assert_no_text 'Promoção de Cyber Monday'
+    assert_no_text '10,00%'
+  end
+
 end
