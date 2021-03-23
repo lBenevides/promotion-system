@@ -175,6 +175,7 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_no_text '10,00%'
   end
 
+
   test 'delete promotion with generated coupons' do
     promotion = Promotion.create!(name: 'Cyber', description: 'Promoção de Cyber Monday',
                                   code: 'Cyber10', discount_rate: 10, coupon_quantity: 90 ,

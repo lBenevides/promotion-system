@@ -1,0 +1,14 @@
+<%= link_to 'Voltar', root_path %>
+<%= link_to 'Criar Categoria de Produto', new_product_category_path %>
+
+<% if @product_categories.empty? %>
+  <h3>Nenhuma categoria de produto cadastrada</h3>
+<% end %>
+
+<% @product_categories.each do |product_category| %>
+    <h3><%= link_to product_category.name, product_category %></h3>
+  <dl>
+    <dt>Código</dt>  
+    <dd><%= product_category.code %></dd>
+  </dl>
+<% end %>

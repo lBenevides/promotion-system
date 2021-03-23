@@ -1,0 +1,10 @@
+<%= link_to 'Voltar', product_categories_path %>
+<%= link_to 'Editar Categoria de Produto', edit_product_category_path(@product_category) %>
+<%= link_to 'Deletar Categoria de Produto', product_category_path(@product_category), method: :delete %>
+
+<dl>
+  <dt>Nome</dt>
+    <dd><%= @product_category.name %></dd>
+  <dt>Código</dt>
+    <dd><%= @product_category.code %></dd>
+</dl>
