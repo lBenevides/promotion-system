@@ -26,6 +26,6 @@
   <%= link_to 'Gerar cupons', generate_coupons_promotion_path(@promotion), method: :post %> 
 <% end %>
 <% @promotion.coupons.each do |coupon| %>
-  <%= coupon.code %>
-
+  <%= "#{coupon.code} #{'(desabilitado)' if coupon.disabled?}" %>
+  <%= link_to 'Desabilitar', disable_coupon_path(coupon), method: :post %>
 <% end %>

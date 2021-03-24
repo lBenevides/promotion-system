@@ -53,5 +53,4 @@ class PromotionTest < ActiveSupport::TestCase
                                     expiration_date: '22/12/2002')
     end
   end
-
 end
