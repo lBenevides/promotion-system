@@ -22,7 +22,7 @@ class PromotionTest < ActiveSupport::TestCase
     promotion = Promotion.new(code: 'NATAL10')
 
     refute promotion.valid?
-    assert_includes promotion.errors[:code], 'deve ser único'
+    assert_includes promotion.errors[:code], 'já está em uso'
   end
 
   test 'generate coupon! succesfully' do

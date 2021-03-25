@@ -47,8 +47,7 @@ class PromotionsController < ApplicationController
     set_find_promotion
     @promotion.generate_coupons!
 
-    flash[:notice] = "Cupons gerados com sucesso"   
-    redirect_to @promotion
+    redirect_to @promotion, notice: t('.success')
   end
 
   private

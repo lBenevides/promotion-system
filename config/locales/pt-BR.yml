@@ -1,0 +1,6 @@
+---
+pt-BR:
+  button:
+    back: 'Voltar'
+    edit: 'Editar'
+    delete: 'Deletar'

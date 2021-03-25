@@ -84,7 +84,7 @@ class PromotionsTest < ApplicationSystemTestCase
     fill_in 'Desconto', with: '15'
     fill_in 'Quantidade de cupons', with: '90'
     fill_in 'Data de término', with: '22/12/2033'
-    click_on 'Criar promoção'
+    click_on 'Criar Promoção'
 
     #assert_current_path promotion_path(Promotion.last)
     assert_text 'Cyber Monday'
@@ -101,7 +101,7 @@ class PromotionsTest < ApplicationSystemTestCase
 
     click_on 'Promoções'
     click_on 'Registrar uma promoção'
-    click_on 'Criar promoção'
+    click_on 'Criar Promoção'
 
     assert_text 'não pode ficar em branco', count: 5
   end
@@ -116,9 +116,9 @@ class PromotionsTest < ApplicationSystemTestCase
     click_on 'Registrar uma promoção'
     fill_in 'Nome', with: 'Natal'
     fill_in 'Código', with: 'NATAL10'
-    click_on 'Criar promoção'
+    click_on 'Criar Promoção'
 
-    assert_text 'deve ser único', count: 2 
+    assert_text 'já está em uso', count: 2 
   end
 
   test 'generate cupons for a promotion' do
@@ -145,14 +145,14 @@ class PromotionsTest < ApplicationSystemTestCase
                                   expiration_date: '22/02/2033')
     
     visit promotion_path(promotion)
-    click_on 'Editar promoção'
+    click_on 'Editar Promoção'
     fill_in 'Nome', with: 'Cyber Monday'
     fill_in 'Descrição', with: 'Promoção de Cyber Monday'
     fill_in 'Código', with: 'CYBER15'
     fill_in 'Desconto', with: '15'
     fill_in 'Quantidade de cupons', with: '30'
     fill_in 'Data de término', with: '22/12/2033'
-    click_on 'Editar'
+    click_on 'Atualizar Promoção'
 
     assert_text 'Cyber Monday'
     assert_text 'Promoção de Cyber Monday'
@@ -168,7 +168,7 @@ class PromotionsTest < ApplicationSystemTestCase
                                   code: 'Cyber10', discount_rate: 10, coupon_quantity: 90 ,
                                   expiration_date: '22/02/2033')
     visit promotion_path(promotion)
-    click_on 'Deletar promoção'
+    click_on 'Deletar Promoção'
 
     assert_no_text 'Cyber'
     assert_no_text 'Promoção de Cyber Monday'
@@ -183,7 +183,7 @@ class PromotionsTest < ApplicationSystemTestCase
                                   
     visit promotion_path(promotion)
     click_on 'Gerar cupons'
-    click_on 'Deletar promoção'
+    click_on 'Deletar Promoção'
     
     assert promotion.coupons.empty?
     assert_no_text 'Cyber'
