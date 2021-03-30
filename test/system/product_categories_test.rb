@@ -60,7 +60,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     fill_in 'Código', with: 'ANTIFUR'
     click_on 'Criar categoria'
 
-    assert_text 'Não pode ficar em branco', count: 1
+    assert_text 'não pode ficar em branco', count: 1
   end
 
   test 'try to create a product category with same name' do
@@ -72,7 +72,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
     fill_in 'Código', with: 'ANTIFRA'
     click_on 'Criar categoria'
 
-    assert_text 'deve ser único', count: 2
+    assert_text 'já está em uso', count: 2
   end
 
   test 'update a product category' do

@@ -4,3 +4,5 @@ pt-BR:
     back: 'Voltar'
     edit: 'Editar'
     delete: 'Deletar'
+  errros:
+    date_in_past: 'não pode ficar no passado' 

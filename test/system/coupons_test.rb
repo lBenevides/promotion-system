@@ -11,6 +11,8 @@ class CouponsTest < ApplicationSystemTestCase
     visit promotion_path(promotion)
     click_on 'Desabilitar'
 
+    #TODO: create a within 'div' do here
+
     assert_text "Cupom #{coupon.code} desabilitado com sucesso"
     assert_text "#{coupon.code} (desabilitado)"
   end

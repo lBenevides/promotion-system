@@ -24,7 +24,7 @@ class Promotion < ApplicationRecord
     def expiration_date_cannot_be_in_the_past
       return unless expiration_date.present? && expiration_date < Date.current
 
-      errors.add(:expiration_date, 'não pode ficar no passado')
+      errors.add(:expiration_date, t('errors.date_in_past') )
     end
 
 end
