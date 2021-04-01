@@ -1,10 +1,12 @@
 class PromotionsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :show, :new, :create, :generate_coupons]
+  before_action :set_find_promotion, only: [:show, :edit, :update, :destroy, :generate_coupons]
+
   def index
     @promotions = Promotion.all
   end
 
   def show
-    set_find_promotion
   end 
 
   def new
@@ -21,13 +23,9 @@ class PromotionsController < ApplicationController
   end
 
   def edit
-    set_find_promotion
-    set_find_promotion
   end
 
   def update
-    set_find_promotion
-
     if @promotion.update(promotion_params)
       redirect_to @promotion
     else
@@ -37,14 +35,12 @@ class PromotionsController < ApplicationController
   end
 
   def destroy
-    set_find_promotion
     @promotion.destroy
 
     redirect_to promotions_path
   end
 
   def generate_coupons
-    set_find_promotion
     @promotion.generate_coupons!
 
     redirect_to @promotion, notice: t('.success')
