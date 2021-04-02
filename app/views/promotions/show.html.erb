@@ -21,6 +21,7 @@
   <dt><%= Promotion.human_attribute_name(:coupon_quantity) %></dt>
   <dd><%= @promotion.coupon_quantity %></dd>
 </dl>
+<hr>
 <% if @promotion.coupons.empty? %>
   <%= link_to t('.generate_coupons'), generate_coupons_promotion_path(@promotion), method: :post %> 
 <% end %>
@@ -29,6 +30,9 @@
     <p><%= "#{coupon.code}" %> (<%= Coupon.human_attribute_name("status.#{coupon.status}") %>)</p>
     <% if coupon.active? %>
       <%= link_to 'Desabilitar', disable_coupon_path(coupon), method: :post %>
+    <% else %>
+      <%= link_to 'Ativar', active_coupon_path(coupon), method: :post %>
     <% end %>
+    <hr>
   </div>
 <% end %>

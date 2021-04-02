@@ -26,17 +26,15 @@ class PromotionsController < ApplicationController
   end
 
   def update
-    if @promotion.update(promotion_params)
-      redirect_to @promotion
-    else
-      render :edit
-    end
+    return redirect_to @promotion if @promotion.update(promotion_params)
 
+    render :edit
   end
 
   def destroy
     @promotion.destroy
-
+    # TODO: colocar notice de sucesso e de falha
+    # TODO: colocar confirmação antes de deletar
     redirect_to promotions_path
   end
 

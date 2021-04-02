@@ -179,6 +179,7 @@ class PromotionsTest < ApplicationSystemTestCase
     login_user
     visit promotion_path(promotion)
     click_on 'Deletar Promoção'
+    
 
     assert_no_text 'Cyber'
     assert_no_text 'Promoção de Cyber Monday'

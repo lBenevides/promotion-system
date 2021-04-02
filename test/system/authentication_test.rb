@@ -4,6 +4,7 @@ class AuthenticationTest < ApplicationSystemTestCase
   test 'user sign up' do
     visit root_path
     click_on 'Cadastrar'
+    fill_in 'Name', with: 'Lucas Benevides'
     fill_in 'Email', with: 'bene@iugu.com.br'
     fill_in 'Senha', with: 'password'
     fill_in 'Confirmação de senha', with: 'password'
@@ -16,14 +17,39 @@ class AuthenticationTest < ApplicationSystemTestCase
     assert_link 'Sair'
     assert_no_link 'Entrar'
     assert_current_path root_path
-    # não logar e ir para o login
-    # confirmar conta?
-    # validar a qualidade da senha?
-    # captcha não sou um robô
+    
+  end
+
+  test 'user sign up error: password too short' do
+    visit root_path
+    click_on 'Cadastrar'
+    fill_in 'Name', with: 'Lucas benevides'
+    fill_in 'Email', with: 'bene@iugu.com'
+    fill_in 'Senha', with: '123'
+    fill_in 'Confirmação de senha', with: '123'
+    within 'div.actions' do
+      click_on 'Cadastrar'
+    end
+
+    assert_text 'Password é muito curto (mínimo: 6 caracteres)'
+  end
+
+  test 'user sign up error: password do not match' do
+    visit root_path
+    click_on 'Cadastrar'
+    fill_in 'Name', with: 'Lucas benevides'
+    fill_in 'Email', with: 'bene@iugu.com'
+    fill_in 'Senha', with: '123456'
+    fill_in 'Confirmação de senha', with: '1234567'
+    within 'div.actions' do
+      click_on 'Cadastrar'
+    end
+
+    assert_text 'Password confirmation não é igual a Password'
   end
 
   test 'user sign in' do
-    user = User.create!(email: 'bene@iugu.com.br', password: 'password')
+    user = User.create!(name: 'Lucas Benevides', email: 'bene@iugu.com.br', password: 'password')
 
     visit root_path
     click_on 'Entrar'
@@ -37,11 +63,62 @@ class AuthenticationTest < ApplicationSystemTestCase
     assert_no_link 'Entrar'
   end
 
-  # TODO: teste de sair
-  # TODO: teste de erros ao cadastrar
-  # TODO: teste de erros ao logar
-  # TODO: teste recuperar senha
+  test 'user sign in error: wrong password' do
+    user = User.create!(name: 'Lucas Benevides', email: 'bene@iugu.com.br', password: 'password')
+
+    visit root_path
+    click_on 'Entrar'
+    fill_in 'Email', with: user.email
+    fill_in 'Senha', with: '123456'
+    click_on 'Log in'
+    
+    assert_text 'Email ou senha inválida'
+  end
+
+  test 'user sign in error: non existing email' do
+    user = User.create!(name: 'Lucas Benevides', email: 'bene@iugu.com.br', password: 'password')
+
+    visit root_path
+    click_on 'Entrar'
+    fill_in 'Email', with: 'lhbo@gmail.com'
+    fill_in 'Senha', with: user.password
+    click_on 'Log in'
+    
+    assert_text 'Email ou senha inválida'
+    
+  end
+
+  test 'user sign out' do
+    login_user
+
+    visit root_path
+    click_on 'Sair'
+    
+    assert_current_path root_path
+    assert_text 'Saiu com sucesso.'
+    assert_link 'Entrar'
+    assert_link 'Cadastrar'
+    assert_no_link 'Sair'
+  end
+
+  test 'user forgot password' do
+    user = User.create!(name: 'Lucas Benevides', email: 'bene@iugu.com.br', password: 'password')
+
+    visit root_path
+    click_on 'Entrar'
+    click_on 'Forgot your password?'
+    fill_in 'Email', with: user.email
+
+    
+    assert_text 'Email ou senha inválida'
+  end
+
+
+  # TODO: Password not strong enough 
+  # TODO: teste recuperar senha | fazer depois
   # TODO: traduzir i18n do user
   # TODO: traduzir o edit de usuario
-  # TODO: incluir name no user
+  # não logar e ir para o login
+  # confirmar conta?
+  # captcha não sou um robô
 end
