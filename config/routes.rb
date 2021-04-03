@@ -9,8 +9,9 @@ Rails.application.routes.draw do
 
   resources :product_categories
 
-  resources :coupons, only: [] do
+  resources :coupons, only: [:show] do
     post 'disable', on: :member
     post 'active', on: :member
+    match 'search', on: :collection, via: [:get, :post]
   end
 end

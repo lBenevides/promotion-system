@@ -1,14 +1,20 @@
 ---
 pt-BR:
   activerecord:
-    model:
-      coupon: Cupom
+    models:
+      coupon:
+        one: Cupom
+        other: Cupoms
     attributes:
       coupon:
         code: Código
+        available: Disponivel
       coupon/status:
        disabled: desabilitado
        active: ativado
+      coupon/available:
+        available: disponivel
+        used: Usado
   coupons:  
     disabled:
       success: Cupom %{code} desabilitado com sucesso

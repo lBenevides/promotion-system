@@ -1,0 +1,9 @@
+<%= form_with model: @coupon do |f| %>
+  <div>
+    <%= f.label :coupon, 'Cupom' %>
+    <%= f.text_field :coupon %>
+  </div>
+  <div>
+    <%= f.submit 'Buscar'  %>
+  </div>
+<% end %>

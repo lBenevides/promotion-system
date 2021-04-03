@@ -1,0 +1,22 @@
+<%= link_to t('button.back'), search_coupons_path %> <br>
+
+<h3> <%=@coupon.code%></h3>   
+
+<dl>
+  <dt> Promoção </dt>
+  <dd><%= @promotion.description %></dd>
+
+  <dt><%= Promotion.human_attribute_name(:discount_rate) %><small> em porcentagem</small></dt>
+  <dd><%= number_to_percentage @promotion.discount_rate, precision: 2 %></dd>
+
+  <dt><%= Promotion.human_attribute_name(:expiration_date) %></dt>
+  <dd><%= l @promotion.expiration_date %></dd>
+
+  <dt><%= Coupon.human_attribute_name(:status) %></dt>
+  <dd><%= Coupon.human_attribute_name("status.#{@coupon.status}").capitalize %></dd>
+
+  <dt><%= Coupon.human_attribute_name(:available) %>?</dt>
+  <dd><%= Coupon.human_attribute_name("available.#{@coupon.available}").capitalize %></dd>
+
+</dl>
+<hr>
