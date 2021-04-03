@@ -58,6 +58,19 @@ class CouponsTest < ApplicationSystemTestCase
     assert_text 'Disponivel'
     assert_text 'Ativado'
   end
+
+  test 'search for a invalid coupon' do
+    login_user
+    visit root_path
+    click_on 'Buscar Cupom'
+
+    fill_in 'Cupom', with: 'NATAL10-0001'
+    click_on 'Buscar'
+
+    assert_current_path search_coupons_path
+    assert_text 'Cupom não encontrado, por favor insira um código valido' 
+
+  end
   
 
 end
