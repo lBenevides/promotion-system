@@ -1,5 +1,5 @@
 class Promotion < ApplicationRecord
-  has_many :coupons, dependent: :destroy
+  has_many :coupons, dependent: :restrict_with_error
 
   validates :name,:code, :discount_rate, :expiration_date,
             :coupon_quantity, presence: true

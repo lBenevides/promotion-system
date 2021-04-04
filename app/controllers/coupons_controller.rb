@@ -23,10 +23,10 @@ class CouponsController < ApplicationController
     if request.post?
       @coupon = Coupon.find_by(code: params[:coupon])
 
-      return redirect_to search_coupons_path, notice: 'Cupom não encontrado, por favor insira um código valido'
-
       if @coupon.present?
         redirect_to @coupon, notice: 'Cupom encontrado com sucesso!'
+      else
+        redirect_to search_coupons_path, notice: 'Cupom não encontrado, por favor insira um código valido'
       end
 
     end

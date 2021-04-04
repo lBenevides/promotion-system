@@ -18,3 +18,6 @@ pt-BR:
       generate_coupons: Gerar cupons
     generate_coupons: 
       success: Cupons gerados com sucesso
+    destroy:
+      success: Promoção deletada com sucesso
+      failed: Promoção não foi deletada

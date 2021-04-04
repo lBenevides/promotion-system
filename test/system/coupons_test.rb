@@ -2,7 +2,6 @@ require 'application_system_test_case'
 
 class CouponsTest < ApplicationSystemTestCase
   test 'disable a coupon' do
-    #arrange
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033')
@@ -10,16 +9,15 @@ class CouponsTest < ApplicationSystemTestCase
     
     login_user
     visit promotion_path(promotion)
-    click_on 'Desabilitar'
-
-    #TODO: create a within 'div' do here
-
+    within 'div#NATAL10-0001' do
+      click_on 'Desabilitar'
+      assert_text "#{coupon.code} (desabilitado)"
+    end
     assert_text "Cupom #{coupon.code} desabilitado com sucesso"
-    assert_text "#{coupon.code} (desabilitado)"
+
   end
 
   test 'active a coupon' do
-    #arrange
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033')
@@ -28,12 +26,12 @@ class CouponsTest < ApplicationSystemTestCase
 
     login_user
     visit promotion_path(promotion)
-    click_on 'Ativar'
-
-    #TODO: create a within 'div' do here
+    within 'div#NATAL10-0001' do
+      click_on 'Ativar'
+      assert_text "#{coupon.code} (ativado)"
+    end
 
     assert_text "Cupom #{coupon.code} ativado com sucesso"
-    assert_text "#{coupon.code} (ativado)"
   end
 
   test 'search for a valid coupon' do
@@ -69,8 +67,24 @@ class CouponsTest < ApplicationSystemTestCase
 
     assert_current_path search_coupons_path
     assert_text 'Cupom não encontrado, por favor insira um código valido' 
-
   end
-  
+
+  test 'view coupom and return to home page' do
+    promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
+      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+      expiration_date: '22/12/2033')
+    coupon = Coupon.create(code: 'NATAL10-0001', promotion: promotion)
+
+    login_user
+    visit root_path
+    click_on 'Buscar Cupom'
+
+    fill_in 'Cupom', with: coupon.code
+    click_on 'Buscar'
+    click_on 'Voltar'
+    click_on 'Voltar'
+
+    assert_current_path root_path
+  end
 
 end

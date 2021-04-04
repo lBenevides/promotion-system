@@ -1,5 +1,5 @@
 class PromotionsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show, :new, :create, :generate_coupons]
+  before_action :authenticate_user!, only: [:index, :show, :new, :create, :generate_coupons, :edit, :update, :destroy]
   before_action :set_find_promotion, only: [:show, :edit, :update, :destroy, :generate_coupons]
 
   def index
@@ -32,10 +32,11 @@ class PromotionsController < ApplicationController
   end
 
   def destroy
-    @promotion.destroy
-    # TODO: colocar notice de sucesso e de falha
-    # TODO: colocar confirmação antes de deletar
-    redirect_to promotions_path
+    if @promotion.destroy
+      redirect_to promotions_path, notice: t('.success')
+    else
+      redirect_to @promotion, notice: t('.failed')
+    end
   end
 
   def generate_coupons

@@ -1,7 +1,9 @@
 
 <%= link_to t('button.back'), promotions_path %> <br>
 <%= link_to "#{t('button.edit')} #{Promotion.model_name.human}", edit_promotion_path(@promotion) %> <br>
-<%= link_to "#{t('button.delete')} #{Promotion.model_name.human}", promotion_path(@promotion), method: :delete %> <br>
+<%= link_to "#{t('button.delete')} #{Promotion.model_name.human}", promotion_path(@promotion), 
+                                                                   method: :delete, 
+                                                                   data: { confirm: 'Você tem certeza?'} %> <br>
 
 <h3> <%=@promotion.name%></h3>   
 
@@ -26,7 +28,7 @@
   <%= link_to t('.generate_coupons'), generate_coupons_promotion_path(@promotion), method: :post %> 
 <% end %>
 <% @promotion.coupons.each do |coupon| %>
-  <div> 
+  <div id="<%= coupon.code%>" > 
     <p><%= "#{coupon.code}" %> (<%= Coupon.human_attribute_name("status.#{coupon.status}") %>)</p>
     <% if coupon.active? %>
       <%= link_to 'Desabilitar', disable_coupon_path(coupon), method: :post %>
