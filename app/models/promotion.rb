@@ -1,5 +1,8 @@
 class Promotion < ApplicationRecord
+  belongs_to :user
   has_many :coupons, dependent: :restrict_with_error
+  has_one :promotion_approval
+  has_one :approver, through: :promotion_approval, source: :user
 
   validates :name,:code, :discount_rate, :expiration_date,
             :coupon_quantity, presence: true
@@ -21,6 +24,14 @@ class Promotion < ApplicationRecord
     where('name LIKE ?', "%#{query}%")
   end
 
+  def approved?
+    promotion_approval.present?  
+  end
+
+  def can_approve?(current_user)
+    user != current_user
+  end
+   
 
   private
 
@@ -28,6 +39,6 @@ class Promotion < ApplicationRecord
       return unless expiration_date.present? && expiration_date < Date.current
 
       errors.add(:expiration_date, t('errors.date_in_past') )
-    end
+    end 
 
 end

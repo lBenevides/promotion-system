@@ -1,6 +1,7 @@
 class PromotionsController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :new, :create, :generate_coupons, :edit, :update, :destroy]
-  before_action :set_find_promotion, only: [:show, :edit, :update, :destroy, :generate_coupons]
+  before_action :set_find_promotion, only: [:show, :edit, :update, :destroy, :generate_coupons, :approve]
+  before_action :can_be_approved, only: [:approve]
 
   def index
     @promotions = Promotion.all
@@ -14,7 +15,7 @@ class PromotionsController < ApplicationController
   end
 
   def create
-    @promotion = Promotion.new(promotion_params)
+    @promotion = current_user.promotions.new(promotion_params)
     if @promotion.save
       redirect_to @promotion
     else
@@ -50,6 +51,11 @@ class PromotionsController < ApplicationController
     render :index
   end
  
+  def approve
+    current_user.promotion_approvals.create!(promotion: @promotion)
+    redirect_to @promotion, notice: 'Promoção aprovada com sucesso'
+  end 
+
   private
 
     def set_find_promotion
@@ -63,6 +69,10 @@ class PromotionsController < ApplicationController
                                         :code,
                                         :coupon_quantity,
                                         :discount_rate)
+    end
+
+    def can_be_approved
+      redirect_to @promotion, alert: 'Ação não permitida' unless @promotion.can_approve?(current_user)
     end
   
 end

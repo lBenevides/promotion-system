@@ -24,9 +24,17 @@
   <dd><%= @promotion.coupon_quantity %></dd>
 </dl>
 <hr>
-<% if @promotion.coupons.empty? %>
-  <%= link_to t('.generate_coupons'), generate_coupons_promotion_path(@promotion), method: :post %> 
+
+<% if @promotion.approved? %>
+  <p>Aprovada por: <%= @promotion.approver.email %></p>
+  <% if @promotion.coupons.empty? %>
+    <%= link_to t('.generate_coupons'), generate_coupons_promotion_path(@promotion), method: :post %> 
+  <% end %>
+<% elsif @promotion.can_approve?(current_user) %>
+  <%= link_to 'Aprovar', approve_promotion_path(@promotion), method: :post, data: {confirm: 'Tem certeza?'} %>
 <% end %>
+
+
 <% @promotion.coupons.each do |coupon| %>
   <div id="<%= coupon.code%>" > 
     <p><%= "#{coupon.code}" %> (<%= Coupon.human_attribute_name("status.#{coupon.status}") %>)</p>
