@@ -128,6 +128,17 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_text 'já está em uso', count: 2 
   end
 
+  test 'view new promotion form and return to index' do
+    login_user
+
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Registrar uma promoção'
+    click_on 'Voltar'
+    
+    assert_current_path promotions_path
+  end
+
   test 'generate cupons for a promotion' do
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
@@ -170,6 +181,22 @@ class PromotionsTest < ApplicationSystemTestCase
     assert_text '22/12/2033'
     assert_text '30'
     assert_link 'Voltar'
+  end
+
+  test 'view edit promotion form and return to index' do
+    promotion = Promotion.create!(name: 'Cyber', description: 'Promoção de Cyber Monday',
+                                  code: 'Cyber10', discount_rate: 10, coupon_quantity: 90 ,
+                                  expiration_date: '22/02/2033')
+    login_user
+
+    visit root_path
+    click_on 'Promoções'
+    click_on 'Cyber'
+    click_on 'Editar Promoção'
+    click_on 'Voltar'
+    click_on 'Voltar'
+    
+    assert_current_path promotions_path
   end
 
   test 'delete promotion' do

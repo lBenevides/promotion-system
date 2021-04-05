@@ -2,6 +2,7 @@ require 'application_system_test_case'
 
 class ProductCategoriesTest < ApplicationSystemTestCase
   test 'view product categories' do
+    login_user
     ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
     ProductCategory.create!(name: 'Produto Secreto', code: 'SECRETO')
 
@@ -15,6 +16,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'view product categories details' do
+    login_user
     ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
 
     visit product_categories_path
@@ -25,6 +27,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'no categories available' do
+    login_user
     visit root_path
     click_on 'Categorias de Produtos'
 
@@ -32,6 +35,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'visit product category details and return to home page' do
+    login_user
     ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
 
     visit root_path
@@ -42,6 +46,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'create a product category and return to index page' do
+    login_user
     visit product_categories_path
     click_on 'Criar Categoria de Produto'
     fill_in 'Nome', with: 'Produto AntiFurto'
@@ -54,6 +59,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'try to create a product with blank attributes' do
+    login_user
     visit product_categories_path
     click_on 'Criar Categoria de Produto'
     fill_in 'Nome', with: ' '
@@ -64,6 +70,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'try to create a product category with same name' do
+    login_user
     ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
 
     visit product_categories_path
@@ -76,6 +83,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'update a product category' do
+    login_user
     product_category = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
 
     visit product_category_path(product_category)
@@ -90,6 +98,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'delete a product category with another on database' do
+    login_user
     product_category = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
     ProductCategory.create!(name: 'Produto AntiHack', code: 'ANTIHACK')
 
@@ -103,6 +112,7 @@ class ProductCategoriesTest < ApplicationSystemTestCase
   end
 
   test 'delete the only product category' do
+    login_user
     product_category = ProductCategory.create!(name: 'Produto AntiFraude', code: 'ANTIFRA')
 
     visit product_category_path(product_category)

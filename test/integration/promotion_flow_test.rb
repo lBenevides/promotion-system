@@ -8,7 +8,7 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  test 'cannot get to new without login' do
+  test 'cannot get to promotion new page without login' do
     get new_promotion_path
     assert_redirected_to new_user_session_path
   end
@@ -117,7 +117,4 @@ class PromotionFlowTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
- 
-
-  # TODO: testes de product_category
 end
