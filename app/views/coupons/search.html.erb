@@ -1,6 +1,6 @@
 <%= link_to t('button.back'), root_path %> <br>
 
-<%= form_with model: @coupon do |f| %>
+<%= form_with url: search_coupons_path, method: :get do |f| %>
   <div>
     <%= f.label :coupon, 'Cupom' %>
     <%= f.text_field :coupon %>

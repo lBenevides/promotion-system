@@ -15,7 +15,10 @@ class Promotion < ApplicationRecord
         coupons.create!(code: "#{code}-#{'%04d' % number}")
       end
     end
+  end
 
+  def self.search(query)
+    where('name LIKE ?', "%#{query}%")
   end
 
 

@@ -20,7 +20,7 @@ class CouponsController < ApplicationController
 
 
   def search
-    if request.post?
+    if params[:coupon]
       @coupon = Coupon.find_by(code: params[:coupon])
 
       if @coupon.present?

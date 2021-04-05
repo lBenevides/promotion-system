@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :promotions do
     post 'generate_coupons', on: :member
+    get 'search', on: :collection
   end
 
   resources :product_categories
@@ -12,6 +13,6 @@ Rails.application.routes.draw do
   resources :coupons, only: [:show] do
     post 'disable', on: :member
     post 'active', on: :member
-    match 'search', on: :collection, via: [:get, :post]
+    get 'search', on: :collection
   end
 end
