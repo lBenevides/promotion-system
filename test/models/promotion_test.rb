@@ -50,11 +50,13 @@ class PromotionTest < ActiveSupport::TestCase
   end
 
   test 'expiration_date cannot be in the past' do
-    assert_raises('Expiration date não pode ficar no passado') do
+    user = login_user
+    error = assert_raises(ActiveRecord::RecordInvalid ) do
       promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                     code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                    expiration_date: '22/12/2002')
+                                    expiration_date: '22/12/2002', user: user)
     end
+    assert_equal 'A validação falhou: Data de término não pode ficar no passado', error.message
   end
 
   test '.search by exact' do

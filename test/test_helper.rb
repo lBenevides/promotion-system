@@ -7,7 +7,7 @@ Dir[Rails.root.join('test/support/**/*.rb')].each { |f| require f  }
 class ActiveSupport::TestCase
   include Warden::Test::Helpers
   # Run tests in parallel with specified workers
-  # parallelize(workers: :number_of_processors)
+  parallelize(workers: :number_of_processors)
   include LoginMacros
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
