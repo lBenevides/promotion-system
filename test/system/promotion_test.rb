@@ -146,7 +146,10 @@ class PromotionsTest < ApplicationSystemTestCase
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
                                   expiration_date: '22/12/2033', user: user)
-    
+
+    PromotionApproval.create(promotion: promotion, user: User.new(name: 'admin', 
+                                                                  email: 'admin@iugu.com.br', 
+                                                                  password: '123456'))
     visit promotion_path(promotion)
     click_on 'Gerar cupons'
 
@@ -223,7 +226,8 @@ class PromotionsTest < ApplicationSystemTestCase
     promotion = Promotion.create!(name: 'Cyber', description: 'Promoção de Cyber Monday',
                                   code: 'Cyber10', discount_rate: 10, coupon_quantity: 90 ,
                                   expiration_date: '22/02/2033', user: user)
-    
+                                
+    PromotionApproval.create(promotion: promotion, user: User.new(name: 'admin', email: 'admin@iugu.com.br', password: '123456'))
     visit promotion_path(promotion)
     click_on 'Gerar cupons'
     accept_confirm do
@@ -316,4 +320,5 @@ class PromotionsTest < ApplicationSystemTestCase
     refute_link 'Gerar cupons'
   end
 
+  # TOOD: ajustar os outros testes
 end

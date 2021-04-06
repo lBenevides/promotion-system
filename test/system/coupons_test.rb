@@ -2,12 +2,12 @@ require 'application_system_test_case'
 
 class CouponsTest < ApplicationSystemTestCase
   test 'disable a coupon' do
+    user = login_user
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                  expiration_date: '22/12/2033')
+                                  expiration_date: '22/12/2033', user: user)
     coupon = Coupon.create(code: 'NATAL10-0001', promotion: promotion)
     
-    login_user
     visit promotion_path(promotion)
     within 'div#NATAL10-0001' do
       click_on 'Desabilitar'
@@ -18,13 +18,13 @@ class CouponsTest < ApplicationSystemTestCase
   end
 
   test 'active a coupon' do
+    user = login_user
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                  expiration_date: '22/12/2033')
+                                  expiration_date: '22/12/2033', user: user)
     coupon = Coupon.create(code: 'NATAL10-0001', promotion: promotion)
     coupon.disabled!
 
-    login_user
     visit promotion_path(promotion)
     within 'div#NATAL10-0001' do
       click_on 'Ativar'
@@ -35,12 +35,12 @@ class CouponsTest < ApplicationSystemTestCase
   end
 
   test 'search for a valid coupon' do
+    user = login_user
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
                                   code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-                                  expiration_date: '22/12/2033')
+                                  expiration_date: '22/12/2033', user: user)
     coupon = Coupon.create(code: 'NATAL10-0001', promotion: promotion)
       
-    login_user
     visit root_path
     click_on 'Buscar Cupom'
 
@@ -70,12 +70,12 @@ class CouponsTest < ApplicationSystemTestCase
   end
 
   test 'view coupom and return to home page' do
+    user = login_user
     promotion = Promotion.create!(name: 'Natal', description: 'Promoção de Natal',
-      code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
-      expiration_date: '22/12/2033')
+                                  code: 'NATAL10', discount_rate: 10, coupon_quantity: 100,
+                                  expiration_date: '22/12/2033', user: user)
     coupon = Coupon.create(code: 'NATAL10-0001', promotion: promotion)
 
-    login_user
     visit root_path
     click_on 'Buscar Cupom'
 

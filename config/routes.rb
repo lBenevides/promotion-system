@@ -9,11 +9,8 @@ Rails.application.routes.draw do
       post 'approve'
     end
     get 'search', on: :collection
-    
   end
-
-  resources :product_categories
-
+  
   resources :coupons, only: [:show] do
     member do
       post 'disable'
@@ -21,4 +18,14 @@ Rails.application.routes.draw do
     end
     get 'search', on: :collection
   end
+
+  resources :product_categories
+
+  namespace :api do
+    namespace :v1 do
+       resources :coupons, only: [:show], param: :code
+    end
+  end
+
+
 end
