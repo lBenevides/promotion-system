@@ -1,3 +1,4 @@
+<%= link_to t('button.back'), root_path %>
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -14,7 +15,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password, 'Senha' %>
+    <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -22,7 +23,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation, 'Confirmação de senha' %><br />
+    <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
