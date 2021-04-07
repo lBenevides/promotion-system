@@ -4,7 +4,7 @@ class AuthenticationTest < ApplicationSystemTestCase
   test 'user sign up' do
     visit root_path
     click_on 'Cadastrar'
-    fill_in 'Name', with: 'Lucas Benevides'
+    fill_in 'Nome', with: 'Lucas Benevides'
     fill_in 'Email', with: 'bene@iugu.com.br'
     fill_in 'Senha', with: 'password'
     fill_in 'Confirmação de senha', with: 'password'
@@ -23,7 +23,7 @@ class AuthenticationTest < ApplicationSystemTestCase
   test 'user sign up error: password too short' do
     visit root_path
     click_on 'Cadastrar'
-    fill_in 'Name', with: 'Lucas benevides'
+    fill_in 'Nome', with: 'Lucas benevides'
     fill_in 'Email', with: 'bene@iugu.com'
     fill_in 'Senha', with: '123'
     fill_in 'Confirmação de senha', with: '123'
@@ -31,13 +31,13 @@ class AuthenticationTest < ApplicationSystemTestCase
       click_on 'Cadastrar'
     end
 
-    assert_text 'Password é muito curto (mínimo: 6 caracteres)'
+    assert_text 'Senha é muito curto (mínimo: 6 caracteres)'
   end
 
   test 'user sign up error: password do not match' do
     visit root_path
     click_on 'Cadastrar'
-    fill_in 'Name', with: 'Lucas benevides'
+    fill_in 'Nome', with: 'Lucas benevides'
     fill_in 'Email', with: 'bene@iugu.com'
     fill_in 'Senha', with: '123456'
     fill_in 'Confirmação de senha', with: '1234567'
@@ -45,7 +45,7 @@ class AuthenticationTest < ApplicationSystemTestCase
       click_on 'Cadastrar'
     end
 
-    assert_text 'Password confirmation não é igual a Password'
+    assert_text 'Confirmação de senha não é igual a Senha'
   end
 
   test 'user sign in' do

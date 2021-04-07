@@ -11,6 +11,7 @@ class PromotionApiTest < ActionDispatch::IntegrationTest
 
     get "/api/v1/coupons/#{coupon.code}"
     assert_response :ok
+    assert_equal coupon.code, response.parsed_body['code']
   end
   
 end
