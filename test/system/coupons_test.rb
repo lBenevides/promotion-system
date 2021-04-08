@@ -87,4 +87,6 @@ class CouponsTest < ApplicationSystemTestCase
     assert_current_path root_path
   end
 
+
+  # TODO: faltando teste
 end
