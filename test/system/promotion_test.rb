@@ -302,7 +302,12 @@ class PromotionsTest < ApplicationSystemTestCase
     visit promotion_path(cyber_monday)
     assert_emails 1 do
       accept_confirm { click_on 'Aprovar' }
+      assert_text 'Promoção aprovada com sucesso' 
     end
+
+    assert_text "Aprovada por: #{approver.email}"
+    assert_text 'Gerar cupons'
+    refute_link 'Aprovar'
  
   end
 
