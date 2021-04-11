@@ -53,7 +53,6 @@ class CouponsTest < ApplicationSystemTestCase
     assert_text '10,00%'
     assert_text '22/12/2033'
     assert_text 'NATAL10-0001'
-    assert_text 'Disponivel'
     assert_text 'Ativado'
   end
 
